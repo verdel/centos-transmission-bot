@@ -1,9 +1,9 @@
 telegram:
     token: {{ TELEGRAM_TOKEN }}
     allow_chat: 
-{% for item in ALLOW_CHAT %}
-        - telegram_id: {{ item.telegram_id }}
-          torrent_permission: '{{ item.torrent_permission }}'
+{% for item in ALLOW_CHAT|env_json %}
+        - telegram_id: {{ item['telegram_id'] }}
+          torrent_permission: '{{ item['torrent_permission'] }}'
 {% endfor %}
     proxy:
       url: socks5://{{ TELEGRAM_PROXY_URL }}:{{ TELEGRAM_PROXY_PORT }}
@@ -16,9 +16,9 @@ transmission:
     user: {{ TRANSMISSION_USERNAME }}
     password: {{ TRANSMISSION_PASSWORD }}
     path:
-{% for item in TRANSMISSION_PATH %}
-      - category: {{ item.category }}
-        dir: '{{ item.dir }}'
+{% for item in TRANSMISSION_PATH|env_json %}
+      - category: {{ item['category'] }}
+        dir: '{{ item['dir'] }}'
 {% endfor %}
 
 db:
